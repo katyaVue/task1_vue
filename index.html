@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task1</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<!--Задача 1. Вводимо логіна і пароль. Якщо логін вірний відображаємо смайл. Якщо ні, то:-->
+<!--1) якщо логін = Іван – колір повідомлення про помилку синій-->
+<!--2) якщо хтось інший, то колір повідомлення червоний-->
+
+<div id="app">
+    <div class="autorization">
+        <label>
+            Login
+            <input type="text" v-model.lazy="login">
+        </label>
+        <label>
+            Password
+            <input type="text" v-model.lazy="password">
+        </label>
+        <button @click="checkLogin" class="check">
+            Go
+        </button>
+    </div>
+    <template v-if="isDataValid">
+        <div v-if="isCorrectLogin" class="smile">
+            <img :src="smile" alt="">
+        </div>
+        <div v-else :class="colorMistake">
+            введені дані не вірні
+        </div>
+    </template>
+</div>
+<script>
+    const {createApp} = Vue
+    const smile = 'https://papik.pro/uploads/posts/2022-08/1661952473_28-papik-pro-p-khoroshego-nastroeniya-smailiki-png-28.jpg';
+    const arrayLoginsAndPassword = [
+        {login: 'user1', password: 'password1'},
+        {login: 'user2', password: 'password2'},
+        {login: 'Іван', password: 'password3'},
+        {login: 'user4', password: 'password4'},
+        {login: 'user5', password: 'password5'},
+        {login: 'user6', password: 'password6'},
+        {login: 'user7', password: 'password7'}
+    ]
+    createApp({
+        data() {
+            return {
+                login: '',
+                password: '',
+                message: '',
+                smile: 'https://papik.pro/uploads/posts/2022-08/1661952473_28-papik-pro-p-khoroshego-nastroeniya-smailiki-png-28.jpg',
+
+            }
+        },
+        methods: {
+            checkLogin() {
+                return arrayLoginsAndPassword.find(item => item.login === this.login && item.password === this.password);
+
+
+            }
+        },
+        computed: {
+            isDataValid() {
+                return this.login && this.password;
+            },
+            isCorrectLogin() {
+                return arrayLoginsAndPassword.some(item => item.login === this.login && item.password === this.password);
+            },
+            colorMistake() {
+                if (this.login === "Іван") return "mistake-blue"
+                else return "mistake-red"
+            }
+        }
+    }).mount('#app')
+</script>
+<style>
+    .autorization {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .mistake-red {
+        color: red;
+    }
+
+    .mistake-blue {
+        color: blue;
+    }
+
+    input {
+        width: 400px;
+        height: 40px;
+    }
+
+    .check {
+        margin-left: 20px;
+        padding: 10px;
+        background: #0ea5e9;
+        border: 0;
+        width: 200px;
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .smile img {
+        max-width: 200px;
+    }
+</style>
+</body>
+</html>
