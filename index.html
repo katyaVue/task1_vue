@@ -36,7 +36,6 @@
 </div>
 <script>
     const {createApp} = Vue
-    const smile = 'https://papik.pro/uploads/posts/2022-08/1661952473_28-papik-pro-p-khoroshego-nastroeniya-smailiki-png-28.jpg';
     const arrayLoginsAndPassword = [
         {login: 'user1', password: 'password1'},
         {login: 'user2', password: 'password2'},
@@ -52,15 +51,12 @@
                 login: '',
                 password: '',
                 message: '',
-                smile: 'https://papik.pro/uploads/posts/2022-08/1661952473_28-papik-pro-p-khoroshego-nastroeniya-smailiki-png-28.jpg',
-
+                smile : 'https://papik.pro/uploads/posts/2022-08/1661952473_28-papik-pro-p-khoroshego-nastroeniya-smailiki-png-28.jpg'
             }
         },
         methods: {
             checkLogin() {
                 return arrayLoginsAndPassword.find(item => item.login === this.login && item.password === this.password);
-
-
             }
         },
         computed: {
